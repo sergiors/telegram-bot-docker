@@ -6,6 +6,9 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
 
   telegrambot:
     build:
@@ -13,4 +16,7 @@ services:
     depends_on:
       - redis
     environment:
+      - REDIS_URL=redis://redis:6379
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+    volumes:
+      - .:/app
