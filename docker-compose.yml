@@ -12,6 +12,7 @@ services:
 
   telegrambot:
     build:
+      context: .
       dockerfile: Dockerfile
     depends_on:
       - redis
